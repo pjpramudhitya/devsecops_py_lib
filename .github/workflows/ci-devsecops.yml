@@ -6,7 +6,7 @@ on:
 
 env:
   PYTHON_VERSION: "3.11"
-  CONTAINER_IMAGE: "github_devsecops"
+  CONTAINER_IMAGE: "pjpramudhitya/github_devsecops"
 
 jobs:
   unit_test:
