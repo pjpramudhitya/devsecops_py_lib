@@ -6,7 +6,7 @@ on:
 
 env:
   PYTHON_VERSION: "3.11"
-  CONTAINER_IMAGE: ${{ vars.CONTAINER_IMAGE || format('{0}/todo-python', secrets.DOCKERHUB_USERNAME) }}
+  CONTAINER_IMAGE: "github_devsecops"
 
 jobs:
   unit_test:
