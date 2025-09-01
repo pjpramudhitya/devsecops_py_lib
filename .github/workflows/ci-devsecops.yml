@@ -56,7 +56,7 @@ jobs:
           path: bandit-report.json
 
   sca:
-    name: sca
+    name: SCA (pip-audit)
     runs-on: ubuntu-latest
     needs: [sast_bandit]
     steps:
@@ -78,4 +78,21 @@ jobs:
         with:
           name: pip-audit-report
           path: pip-audit-report.json
-      
+  
+  secret_scan_gitleaks:
+    name: Secret Scan (Gitleaks)
+    runs-on: ubuntu-latest
+    needs: [sca]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Gitleaks
+        run: |
+          curl -sSL https://github.com/zricethezav/gitleaks/releases/latest/download/gitleaks-linux-amd64 -o /usr/local/bin/gitleaks
+          chmod +x /usr/local/bin/gitleaks
+      - name: Run Gitleaks
+        run: gitleaks detect --source . --report-format json --report-path gitleaks-report.json
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitleaks-report
+          path: gitleaks-report.json
